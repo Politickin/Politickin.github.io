@@ -829,12 +829,12 @@
     <button class="tab" data-v="involved">🤝 Get involved</button>
     <button class="tab" data-v="sources">Sources</button>
     <button class="tab" data-v="donate">♥ Donate</button>
-    <a class="tab quiztab" href="quiz.html" target="_blank" rel="noopener">🧭 Party Match quiz ↗</a>
+    <a class="tab quiztab" href="quiz.html">🧭 Party Match quiz</a>
   </nav>
 
   <!-- PEOPLE -->
   <section class="view on" id="v-people">
-    <a class="quizban" href="quiz.html" target="_blank" rel="noopener"><b>🧭 Not sure where you fit?</b> Take the 27-question Party Match quiz to see which party, and which part of it, you line up with. <span>Start the quiz →</span></a>
+    <a class="quizban" href="quiz.html"><b>🧭 Not sure where you fit?</b> Take the 27-question Party Match quiz to see which party, and which part of it, you line up with. <span>Start the quiz →</span></a>
     <div class="notice"><b>Information as of November 16, 2026.</b> No major candidate in either party has formally launched a campaign yet. Most names below have only expressed interest or are mentioned by the media. Statuses change often, so check the sources for the latest.</div>
     <div class="notice"><b>About the labels and money.</b> Political labels are approximate. They come from how each person describes themselves or how major news outlets usually describe them, and many people don't accept labels. AIPAC funding comes from trackers that use federal (FEC) records. In October 2026, AIPAC said it would stop endorsing candidates and directing donations to them, but it will keep running its super PAC, the United Democracy Project.</div>
     <div class="controls">
@@ -986,7 +986,7 @@
         <h3>♥ Support Politickin'</h3>
         <p>Politickin' is free, has no paywall and doesn't take sides. Every donation does two things: it keeps this site running and up to date, and it directly supports the young man whose idea started it all.</p>
         <div class="don-amts" id="donAmts2"></div>
-        <p class="dmsg" id="donMsg2">Payments are handled by a secure payment service in a new tab. Politickin' never sees your card details.</p>
+        <p class="dmsg" id="donMsg2">Donations go through GoFundMe in a new tab, where you choose any amount. Politickin' never sees your card details.</p>
       </div>
       <div class="dgrid">
         <div class="dcard dstory"><h4>The story behind Politickin'</h4>
@@ -1477,8 +1477,8 @@ $("partySeg").querySelectorAll("button").forEach(b => b.onclick = () => {
   $("partySeg").querySelectorAll("button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); filt.party = b.dataset.p; render();
 });
 
-document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
-  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on")); t.classList.add("on");
+document.querySelectorAll(".tab[data-v]").forEach(t => t.onclick = () => {
+  document.querySelectorAll(".tab[data-v]").forEach(x=>x.classList.remove("on")); t.classList.add("on");
   document.querySelectorAll(".view").forEach(v=>v.classList.remove("on")); $("v-"+t.dataset.v).classList.add("on");
 });
 
@@ -1727,7 +1727,7 @@ const DONATE_LINKS = {
   "5": "",
   "10": "",
   "20": "",
-  "other": ""
+  "other": "https://gofund.me/d73f18fa3"
 };
 document.addEventListener("DOMContentLoaded", function(){
   const pop = document.getElementById("donPop");
@@ -1737,7 +1737,7 @@ document.addEventListener("DOMContentLoaded", function(){
   const fill = (boxId, noteId, soonText) => {
     const amts = document.getElementById(boxId); if (!amts) return;
     amts.innerHTML = keys.map(k => {
-      const label = k === "other" ? "Other amount" : "$" + k, cls = k === "other" ? "other" : "", u = safe(DONATE_LINKS[k]);
+      const label = k === "other" ? (keys.filter(x => safe(DONATE_LINKS[x])).length === 1 ? "♥ Donate on GoFundMe" : "Other amount") : "$" + k, cls = k === "other" ? "other" : "", u = safe(DONATE_LINKS[k]);
       if (any && !u) return "";
       return u ? `<a class="${cls}" href="${u}" target="_blank" rel="noopener">${label}</a>` : `<button type="button" class="${cls}" data-soon>${label}</button>`;
     }).join("");
