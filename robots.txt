@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://politickin.github.io/sitemap.xml
